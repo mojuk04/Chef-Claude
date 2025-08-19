@@ -5,12 +5,31 @@ import IngredientsList from "./IngredientsList";
 import { getMistralRecipe } from "../ai";
 
 export const Main = () => {
-  const [ingredients, setIngredients] = React.useState([]);
+  const [ingredients, setIngredients] = React.useState([
+    "chicken",
+    "all the main spices",
+    "corn",
+    "heavy cream",
+    "pasta",
+  ]);
   const [recipe, setRecipe] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
 
-  const ingredientList = ingredients.map((ingredient) => {
-    return <li key={ingredient}>{ingredient}</li>;
+  const handleDelete = (indexToDelete) => {
+    const updatedList = ingredients.filter(
+      (_, index) => index !== indexToDelete
+    );
+    setIngredients(updatedList);
+  };
+  const ingredientList = ingredients.map((ingredient, index) => {
+    return (
+      <li key={index}>
+        {ingredient}
+        <button className="delete-btn" onClick={() => handleDelete(index)}>
+          Delete
+        </button>
+      </li>
+    );
   });
 
   // function to handle adding items to ingredients list
@@ -41,6 +60,12 @@ export const Main = () => {
 
   return (
     <main>
+      <section>
+        <p>
+          Welcome to the Chef Claude Recipe Recommendation App. <br />
+          Add at least 4 ingredients to get a recipe from the AI
+        </p>
+      </section>
       <form action={handleSubmit}>
         <input type="text" placeholder=" e.g oregano" name="ingredient" />
         <button> + Add Ingredient</button>

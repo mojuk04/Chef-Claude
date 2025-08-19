@@ -2,15 +2,19 @@ import React from "react";
 import "../App.css";
 import ClaudeRecipe from "./ClaudeRecipe";
 import IngredientsList from "./IngredientsList";
+import { getMistralRecipe } from "../ai";
 
 export const Main = () => {
   const [ingredients, setIngredients] = React.useState([
+    "chicken",
     "all the main spices",
+    "corn",
+    "heavy cream",
     "pasta",
-    "ground beef",
-    "tomato paste",
   ]);
-  const [recipe, setRecipe] = React.useState(false);
+  const [recipe, setRecipe] = React.useState("");
+  const [isLoading, setIsLoading] = React.useState(false);
+
   const ingredientList = ingredients.map((ingredient) => {
     return <li key={ingredient}>{ingredient}</li>;
   });
@@ -28,8 +32,17 @@ export const Main = () => {
   };
 
   // function to get a recipe from ai from get a recipe button
-  const getRecipe = () => {
-    setRecipe((prev) => !prev);
+  const getRecipe = async (event) => {
+    event.preventDefault();
+    try {
+      const newRecipe = await getMistralRecipe(ingredients);
+      setRecipe(newRecipe);
+    } catch (error) {
+      setRecipe("Sorry, couldn't get a recipe. Please try again.");
+      alert(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -45,7 +58,7 @@ export const Main = () => {
           onClick={getRecipe}
         />
       ) : undefined}
-      {recipe ? <ClaudeRecipe /> : undefined}
+      {recipe ? <ClaudeRecipe recipe={recipe} /> : undefined}
     </main>
   );
 };

@@ -5,13 +5,7 @@ import IngredientsList from "./IngredientsList";
 import { getMistralRecipe } from "../ai";
 
 export const Main = () => {
-  const [ingredients, setIngredients] = React.useState([
-    "chicken",
-    "all the main spices",
-    "corn",
-    "heavy cream",
-    "pasta",
-  ]);
+  const [ingredients, setIngredients] = React.useState([]);
   const [recipe, setRecipe] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
 

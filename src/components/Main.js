@@ -12,8 +12,15 @@ export const Main = () => {
     "heavy cream",
     "pasta",
   ]);
+  const recipeSection = React.useRef(null);
   const [recipe, setRecipe] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
+
+  React.useEffect(() => {
+    if (recipe !== "" && recipeSection.current !== null) {
+      recipeSection.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [recipe]);
 
   const handleDelete = (indexToDelete) => {
     const updatedList = ingredients.filter(
@@ -72,6 +79,7 @@ export const Main = () => {
       </form>
       {ingredients.length > 0 ? (
         <IngredientsList
+          ref={recipeSection}
           ingredientList={ingredientList}
           ingredients={ingredients}
           onClick={getRecipe}

@@ -118,8 +118,16 @@ ul li{
 }
 .recipeGenerated{
   max-width: 100%;
+  text-align: left;
+  margin: auto;
+  /* text-align: left; */
 }
 .recipeGenerated li{
-  max-width: 90%;
+  width: 100%;
+  margin: 0.25rem;
+  display: flex;
+  position: relative;
+  left: -2rem;
+  text-align: left;
 }
 /* PrinStory Womens Sleepwear Short Sleeve Nightgown Soft Sleepshirt Pleated Nightshirt Scoopneck Casual Loungewear */

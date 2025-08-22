@@ -24,7 +24,7 @@ export const Main = () => {
   };
   const ingredientList = ingredients.map((ingredient, index) => {
     return (
-      <li key={index}>
+      <li className="ing-list" key={index}>
         {ingredient}
         <button className="delete-btn" onClick={() => handleDelete(index)}>
           Delete
